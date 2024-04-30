@@ -7,9 +7,10 @@ import java.net.Socket;
 public class Server {
     public static void main(String[] args) throws Exception {
         String outMessage = "Hi!";
-        System.out.println("Creating a socket for communication");
+        System.out.println("Creating a socket and waiting for connection");
         ServerSocket mySocket = new ServerSocket(3256);
         Socket actualSocket = mySocket.accept();
+        System.out.println("Client has connected to server socket!");
 
         MyCoolDataStructure queue = new MyCoolDataStructure();
         DataReader myDataReader = new DataReader(actualSocket, queue);

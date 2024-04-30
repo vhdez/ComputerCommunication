@@ -12,18 +12,19 @@ public class DataReader implements Runnable {
         this.actualSocket = actualSocket;
         this.inData = inData;
         InputStream in = actualSocket.getInputStream();
-        objIn = new ObjectInputStream(in);
+        this.objIn = new ObjectInputStream(in);
     }
 
     public void run()  {
-        try {
-            while (true) {
+        while (!Thread.currentThread().interrupted()) {
+            try {
                 Object inMessage1 = objIn.readObject();
                 inData.put(inMessage1);
+            } catch (IOException ioex) {
+                // its ok to get IOException when there is no object to read in from ObjectInputStream
+            } catch (Exception ex) {
+                System.out.println("Ooops DataReader broke: " + ex);
             }
-        } catch (Exception ex) {
-            System.out.println("Ooops DataReader broke: " + ex);
         }
-
     }
 }
