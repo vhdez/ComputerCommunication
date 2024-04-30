@@ -16,7 +16,7 @@ public class DataReader implements Runnable {
     }
 
     public void run()  {
-        while (!Thread.currentThread().interrupted()) {
+        while (true) {
             try {
                 Object inMessage1 = objIn.readObject();
                 inData.put(inMessage1);
